@@ -61,7 +61,7 @@ element *delete_element(element *head, char *slowo) {
   return head;
 }
 
-// funkcja wciskajaca element w preznaczone dla niego miejsce
+// funkcja wciskajaca element w przeznaczone dla niego miejsce
 // (wg alfabetu)
 void *between(element *previous, element *sequent) { 
   sequent->next = previous->next;
