@@ -67,7 +67,7 @@ element *delete_element(element *head, char *slowo) {
   	return head;
 }
 
-void *view_list(element *head) {
+void view_list(element *head) {
 	element *current;
 	if(head == NULL)
 		printf("Lista jest pusta.\n");
