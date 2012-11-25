@@ -12,8 +12,17 @@ typedef struct element {
 
 element *create_element(char *slowo) {	// Funkcja lokujaca pamiec na nowy element i ->word
 	element *new_element = malloc(sizeof(element));
-	new_element->word = malloc(SIZE);
-	
+	if(new_element == NULL) {
+		printf("Brak pamieci\n");	// "Przewidziec komunikat o bledzie
+		return NULL;			// brak pamieci na nowy element."
+	}
+	new_element->word = malloc(SIZE);	// To co wyzej.
+	if(new_element->word == NULL) {
+		printf("Brak pamieci\n");
+		free(new_element);
+		return NULL;
+	}
+
 	strncpy(new_element->word,slowo,30);
 	new_element->arity = 1;
 	new_element->next=NULL;
@@ -81,7 +90,9 @@ element *add_element(element *head, char *slowo) {
   	// Nowy element staje sie poczatkiem listy.
 	if (head == NULL) {
     	element *new_element = create_element(slowo);// tworzenie nowego elementu
-    	head = new_element;
+    	if(new_element == NULL) return head; //BRAK PAMIECI.
+	
+	head = new_element;	
   	}
   	else {
     
@@ -100,6 +111,8 @@ element *add_element(element *head, char *slowo) {
     		// przerwij sprawdzanie kolejnych struktur.
     		if(strcmp(current->word,slowo)>0) {		// if #2
     			new_element = create_element(slowo);
+			if(new_element == NULL) return head; //BRAK PAMIECI.
+			
 				new_element->next = current;
 				
 				if (previous == NULL) 
@@ -116,6 +129,7 @@ element *add_element(element *head, char *slowo) {
     	// Wszystkie poprzednie elementy sa rozne lub mniejsze alfabetycznie
     	// od slowa, tworzona jest wiec nowa struktura na koncu.
 		previous->next = create_element(slowo);
+		//if(new_element == NULL) return head; //BRAK PAMIECI.	I tak pozniej zwraca head.
     } 	
   	return head;
 }
